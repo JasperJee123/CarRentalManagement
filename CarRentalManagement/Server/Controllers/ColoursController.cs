@@ -36,7 +36,11 @@ namespace CarRentalManagement.Server.Controllers
             //  return NotFound();
             //}
             //return await _context.Colours.ToListAsync();
+
+            //return NotFound();
+
             var Colours = await _unitOfWork.Colours.GetAll();
+
             if (Colours == null)
             {
                 return NotFound();

@@ -7,6 +7,13 @@
 <h3 class="card-title">Car Bookings</h3>
 <br />
 
+<a href="/bookings/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Booking
+</a>
+<br />
+<br />
+
 @if (Bookings == null)
 {
     <div class="aler alert-info">Loading Bookings...</div>
@@ -31,7 +38,10 @@ else
                     <td>@booking.Id</td>
                     <td>@booking.Customer.DrivingLicense</td>
                     <td>@booking.DateCreated.Date.ToString("dd MMMM yyyy")</td>
-                    <td>@((booking.DateIn - booking.DateOut).TotalDays.ToString())</td>
+                    <td>
+                        @(booking.DateIn != null ? (booking.DateIn.Value -
+                            booking.DateOut).TotalDays.ToString() : "To Be Determined")
+                    </td>
                     <td>@booking.Vehicle.LicensePlateNumber</td>
                     <td>
                         <a href="/bookings/view/@booking.Id" class="btn btn-primary">
@@ -52,6 +62,7 @@ else
 
 @code {
     private List<Booking>? Bookings;
+    private DateTime nullDT = new DateTime(1, 1, 1, 0, 0, 0);
 
     protected async override Task OnInitializedAsync()
     {
